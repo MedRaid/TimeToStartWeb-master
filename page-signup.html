@@ -1,0 +1,90 @@
+<html>
+<head>
+<script src="scripts/backendless.js"></script>
+<script type="text/javascript" src="scripts/jquery.js"></script>
+<link href="styles/style.css"           rel="stylesheet" type="text/css">
+<link href="styles/framework.css"       rel="stylesheet" type="text/css">
+<link href="Teacher/styles/font-awesome.css"    rel="stylesheet" type="text/css">
+<link href="Teacher/styles/animate.css"         rel="stylesheet" type="text/css">
+<script>
+
+$(document).ready(function(){
+
+document.getElementById("files").onchange = function () {
+    var reader = new FileReader();
+
+    reader.onload = function (e) {
+        // get loaded data and render thumbnail.
+        document.getElementById("image").src = e.target.result;
+    };
+
+    // read the image file as a data URL.
+    reader.readAsDataURL(this.files[0]);
+	
+	
+};
+
+$( "#btn" ).click(function() {
+try {
+
+  Backendless.Files.upload( document.getElementById("files").files[0], "Profile");
+var e = "https://api.backendless.com/bba71caf-54d7-f483-ffbb-7a380218d700/v1/files/Profile/"+document.getElementById("files").files[0].name;
+alert(e);
+var user = new Backendless.User();
+user.email = document.getElementById("email").value;
+user.password = document.getElementById("password").value;
+user.name = document.getElementById("name").value;
+user.ts="s";
+user.pic=e ;
+ 
+Backendless.UserService.register( user );
+ }
+ catch (  e )
+ {
+ alert();
+ }
+});
+
+function  create() { 
+alert("hi");
+ 
+ 
+ 
+
+
+}
+   
+});
+var APPLICATION_ID = 'BBA71CAF-54D7-F483-FFBB-7A380218D700',
+    SECRET_KEY = 'B39B243B-1A95-530D-FF7B-F20388A57800',
+    VERSION = 'v1'; //default application version;
+Backendless.initApp(APPLICATION_ID, SECRET_KEY, VERSION);
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+</script>
+
+
+
+
+
+
+</head>
+<body>
+<input type="file" id="files"  accept="image/*" />
+<input type="button" value="add" id="btn"
+/>
+<img id="image" src=" https://api.backendless.com/bba71caf-54d7-f483-ffbb-7a380218d700/v1/files/Profile/aazdz.PNG" />
+</body>
+
+</html>
